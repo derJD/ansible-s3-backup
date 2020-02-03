@@ -19,13 +19,10 @@ Role Variables
 
 | Variable | Type | Default | Description |
 | -------- | ---- | ------- | ----------- |
-| `docker_daemon_options` | dict | `{group: docker, l` | Dictionary containing all settings for daemon.json |
-| `docker_packages` | list | `[docker-ce, docker-ce-cli, containerd.io, docker-compose]` | List containing packages which should be installed |
-
 | `s3_backup_region` | string | `us-east-1` | Default region |
 | `s3_backup_endpoint` | string | `s3.amazonaws.com` | Endpoint to connect to. Works with S3-Compatible endpoinds as well (At least cephs rados s3) |
-| `s3_backup_access_key` | "" | Access Key |
-| `s3_backup_secret_key` | "" | Secret Key |
+| `s3_backup_access_key` | string | "" | Access Key |
+| `s3_backup_secret_key` |string | "" | Secret Key |
 | `s3_backup_credentials` | dict | { aws_access_key_id: "{{ s3_backup_access_key }}", aws_secret_access_key: "{{ s3_backup_secret_key }}" } | Wrapper for writing access and secret key into credentials config |
 | `s3_backup_configs` | complex | {} | Configuration for Backups. Each element must contain `name`, `src`, `dst`, `key`.  See Example Playbook |
 
