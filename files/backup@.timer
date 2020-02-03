@@ -1,0 +1,11 @@
+[Unit]
+Description=Backup %i into S3
+Requires=backup@%i.service
+
+[Timer]
+OnCalendar=*-*-* 4:42
+RandomizedDelaySec=60m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

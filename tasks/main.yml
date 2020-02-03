@@ -1,0 +1,40 @@
+---
+
+- name: base directories
+  file: name={{ item }} state=directory
+  loop:
+    - /root/.aws/
+    - /etc/backup/
+
+- name: install prerequirements
+  package: name=python3-pip
+
+- name: install awscli
+  package: name={{ item }} use=pip
+  loop: [ 'pyasn1', 'awscli' ]
+
+- name: /root/.aws/config
+  ini_file: path=/root/.aws/config section=default option=region value={{ s3_backup_region }}
+- name: /root/.aws/credentials
+  ini_file: path=/root/.aws/config section=backup option={{ item }} value={{ s3_backup_credentials.item }}
+  loop: "{{ s3_backup_credentials | flatten }}"
+
+- name: /usr/local/bin/s3.backup.sh
+  copy: src=s3.backup.sh dest=/usr/local/bin/s3.backup.sh mode=0755
+
+- name: copy systemd units
+  copy: src=backup@.{{ item }} dest=/etc/systemd/system/backup@.{{ item }}
+  loop: [ 'timer', 'service' ]
+
+- name: config files
+  copy:
+    dest: "/etc/backup/{{ item.name }}.conf"
+    content: |
+      SRC={{ item.src }}
+      DST={{ item.dst }}
+      KEY={{ item.key }}
+  loop: "{{ s3_backup_configs }}"
+
+- name: backup timer
+  service: name={{ item }}.timer state=started enabled=yes daemon_reload=yes
+  loop: "{{ s3_backup_configs }}"

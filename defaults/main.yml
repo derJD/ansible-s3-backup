@@ -1,0 +1,12 @@
+---
+
+s3_backup_region: us-east-1
+s3_backup_endpoint: rgw.noris.net
+
+s3_backup_access_key: ""
+s3_backup_secret_key: ""
+s3_backup_credentials:
+  aws_access_key_id: "{{ s3_backup_access_key }}"
+  aws_secret_access_key: "{{ s3_backup_secret_key }}"
+
+s3_backup_configs: {}

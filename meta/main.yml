@@ -1,0 +1,20 @@
+galaxy_info:
+  author: derJD
+  description: Ansible role creating simpe encrypted S3 backups with timers and a script
+  license: BSD
+  min_ansible_version: 2.9
+  role_name: s3_backup
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - s3
+    - aws
+    - backup
+
+dependencies: []

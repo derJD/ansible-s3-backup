@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup %i into S3
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/backup/%i.conf
+ExecStart=/usr/local/bin/s3.backup.sh -s $SRC -d $DST -k $KEY
